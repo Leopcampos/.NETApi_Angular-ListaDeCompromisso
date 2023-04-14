@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProjetoApiEntittyFramework.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjetoApiEntittyFramework.Infra.Mappings
 {
@@ -13,7 +8,33 @@ namespace ProjetoApiEntittyFramework.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<Compromisso> builder)
         {
-            throw new NotImplementedException();
+            //chave primária
+            builder.HasKey(c => c.IdCompromisso);
+
+            //campos da tabela
+            builder.Property(c => c.Nome)
+            .HasMaxLength(150)
+            .IsRequired();
+
+            builder.Property(c => c.Data)
+            .HasColumnType("date")
+            .IsRequired();
+
+            builder.Property(c => c.Hora)
+            .HasColumnType("time")
+            .IsRequired();
+
+            builder.Property(c => c.Descricao)
+            .HasMaxLength(500)
+            .IsRequired();
+
+            #region Mapeamento de Relacionamentos
+
+            builder.HasOne(c => c.Usuario) //Compromisso TEM 1 Usuário
+                .WithMany(u => u.Compromissos) //Usuário TEM MUITOS Compromissos
+                .HasForeignKey(c => c.IdUsuario); //Chave estrangeira
+
+            #endregion
         }
     }
 }

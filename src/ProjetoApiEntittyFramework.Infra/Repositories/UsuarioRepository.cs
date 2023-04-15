@@ -15,12 +15,16 @@ namespace ProjetoApiEntittyFramework.Infra.Repositories
 
         public Usuario Get(string email)
         {
-            throw new NotImplementedException();
+            return _context.Usuario
+                .Where(u => u.Email.Equals(email))
+                .FirstOrDefault();
         }
 
         public Usuario Get(string email, string senha)
         {
-            throw new NotImplementedException();
+            return _context.Usuario
+                .Where(u => u.Email.Equals(email) && u.Senha.Equals(senha))
+                .FirstOrDefault();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ProjetoApiEntittyFramework.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoApiEntittyFramework.Domain.Entities;
 using ProjetoApiEntittyFramework.Infra.Contexts;
 using ProjetoApiEntittyFramework.Infra.Contracts;
 
@@ -15,7 +16,11 @@ namespace ProjetoApiEntittyFramework.Infra.Repositories
 
         public List<Compromisso> GetByDatas(DateTime dataMin, DateTime dataMax, Guid idUsuario)
         {
-            throw new NotImplementedException();
+            return _context.Compromisso
+                .Include(c => c.Usuario)
+                .Where(c => c.Data >= dataMin && c.Data <= dataMax && c.IdUsuario == idUsuario)
+                .OrderBy(c => c.Data)
+                .ToList();
         }
     }
 }

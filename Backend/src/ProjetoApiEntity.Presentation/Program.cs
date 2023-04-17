@@ -13,6 +13,20 @@ builder.Services.AddSwaggerGen();
 builder.AddEntityFrameworkConfiguration();
 builder.AddJwt();
 
+#region CORS - Cross Origin Resource Sharing
+
+builder.Services.AddCors(
+s => s.AddPolicy("DefaultPolicy",
+builder =>
+{
+    builder.AllowAnyOrigin()//clientes de qualquer origem
+    .AllowAnyMethod()  //qualquer método (POST, PUT, DELETE, GET, etc)
+    .AllowAnyHeader(); //qualquer cabeçalho
+})
+);
+
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +35,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+#region CORS - Cross Origin Resource Sharing
+
+app.UseCors("DefaultPolicy");
+
+#endregion
 
 app.UseAuthentication();
 app.UseAuthorization();

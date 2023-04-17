@@ -1,0 +1,91 @@
+<div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-9 col-lg-9 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="p-5">
+
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Criar Conta de Usuário</h1>
+                                </div>
+
+                                <div class="alert alert-success alert-dismissible fade show"
+                                    [hidden]="!mensagens.sucesso" role="alert">
+                                    <strong>{{mensagens.sucesso}}</strong>
+                                </div>
+
+                                <div class="alert alert-danger alert-dismissible fade show" [hidden]="!mensagens.erro"
+                                    role="alert">
+                                    <strong>{{mensagens.erro}}</strong>
+                                </div>
+
+                                <form #formRegister="ngForm" (submit)="cadastrarUsuario(formRegister)" class="user"
+                                    autocomplete="off">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nome do Usuário:</label>
+                                                <input type="text" name="nome" ngModel
+                                                    class="form-control form-control-user" id="nome"
+                                                    placeholder="Ex: João Silva">
+                                                <div class="text-danger" *ngFor="let e of validacoes.nome">
+                                                    <i class="fa fa-exclamation-circle"></i> {{e}}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Senha de Acesso:</label>
+                                                <input type="password" name="senha" ngModel
+                                                    class="form-control form-control-user" id="senha"
+                                                    placeholder="Digite aqui">
+                                                <div class="text-danger" *ngFor="let e of validacoes.senha">
+                                                    <i class="fa fa-exclamation-circle"></i> {{e}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Email de Acesso:</label>
+                                                <input type="email" name="email" ngModel
+                                                    class="form-control form-control-user" id="email"
+                                                    placeholder="Ex: joaosilva@gmail.com">
+                                                <div class="text-danger" *ngFor="let e of validacoes.email">
+                                                    <i class="fa fa-exclamation-circle"></i> {{e}}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Confirme sua Senha:</label>
+                                                <input type="password" name="senhaConfirmacao" ngModel
+                                                    class="form-control form-control-user" id="senhaConfirm"
+                                                    placeholder="Digite aqui">
+                                                <div class="text-danger" *ngFor="let e of validacoes.senhaConfirmacao">
+                                                    <i class="fa fa-exclamation-circle"></i> {{e}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        Cadastrar Conta de Usuário
+                                    </button>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

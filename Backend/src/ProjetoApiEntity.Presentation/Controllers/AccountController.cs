@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoApiEntity.CrossCutting.Cryptography;
 using ProjetoApiEntity.Domain.Entities;
 using ProjetoApiEntity.Infra.Contracts;
@@ -20,7 +19,7 @@ namespace ProjetoApiEntity.Presentation.Controllers
 
                 if (usuarioRepository.Get(model.Email) != null)
                 {
-                    return StatusCode(403, "O email informado já encontra-se cadastrado. Tente outro.");
+                    return StatusCode(403, new {Message = "O email informado já encontra-se cadastrado. Tente outro."});
                 }
 
                 #endregion
@@ -35,7 +34,10 @@ namespace ProjetoApiEntity.Presentation.Controllers
                 };
 
                 usuarioRepository.Create(usuario);
-                return Ok("Usuário cadastrado com sucesso.");
+                return Ok(new
+                {
+                    Message = "Usuário cadastrado com sucesso."
+                });
             }
             catch (Exception e)
             {

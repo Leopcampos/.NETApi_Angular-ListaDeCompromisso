@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoApiEntity.CrossCutting.Cryptography;
 using ProjetoApiEntity.Infra.Contracts;
 using ProjetoApiEntity.Presentation.Models;
@@ -22,7 +21,7 @@ namespace ProjetoApiEntity.Presentation.Controllers
                 var usuario = usuarioRepository.Get(model.Email, MD5Cryptography.Encrypt(model.Senha));
 
                 if (usuario == null) //se usuário não foi encontrado
-                    return StatusCode(401, "Acesso negado. Usuário inválido.");
+                    return StatusCode(401, new { Message = "Acesso negado. Usuário inválido." });
 
                 //gerando e retornando o TOKEN de autenticação..
                 return Ok(new

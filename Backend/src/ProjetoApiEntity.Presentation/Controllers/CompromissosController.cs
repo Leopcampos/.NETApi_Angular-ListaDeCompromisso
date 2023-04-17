@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjetoApiEntity.Domain.Entities;
 using ProjetoApiEntity.Infra.Contracts;
 using ProjetoApiEntity.Presentation.Models.Compromisso;
 
-namespace ProjetoApiEntity.Presentation.Controllers
+namespace ProjetoAPIEntity2.Presentation.Controllers
 {
+    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
     public class CompromissosController : ControllerBase
     {
         [HttpPost]
@@ -14,7 +18,7 @@ namespace ProjetoApiEntity.Presentation.Controllers
         {
             try
             {
-                //buscar os dados do usuário autenticado na API
+                //buscar os dados do usuário autenticado na API..
                 var usuario = usuarioRepository.Get(User.Identity.Name);
 
                 //transferir os dados do model para a entidade Compromisso
@@ -45,13 +49,13 @@ namespace ProjetoApiEntity.Presentation.Controllers
         {
             try
             {
-                //obter o usuário autenticado
+                //obter o usuario autenticado..
                 var usuario = usuarioRepository.Get(User.Identity.Name);
 
-                //buscar o compromisso no banco de dados
+                //obter o compromisso no banco de dados
                 var compromisso = compromissoRepository.GetById(model.IdCompromisso);
 
-                //verificar se o compromisso existe e se pertence ao usuário autenticado
+                //verificar se o compromisso foi encontrado e se pertence ao usuario autenticado..
                 if (compromisso != null && compromisso.IdUsuario == usuario.IdUsuario)
                 {
                     compromisso.Nome = model.Nome;
@@ -67,7 +71,6 @@ namespace ProjetoApiEntity.Presentation.Controllers
                 {
                     return StatusCode(403, "Compromisso inválido para edição.");
                 }
-
             }
             catch (Exception e)
             {
@@ -82,18 +85,19 @@ namespace ProjetoApiEntity.Presentation.Controllers
         {
             try
             {
-                //obter o usuario autenticado
+                //obter o usuario autenticado..
                 var usuario = usuarioRepository.Get(User.Identity.Name);
 
-                //obter o compromisso através do id
+                //obter o compromisso atraves do id..
                 var compromisso = compromissoRepository.GetById(id);
 
-                //verificar se o compromisso existe e se pertence ao usuário autenticado
+                //verificar se o compromisso existe e se pertence ao usuario autenticado
                 if (compromisso != null && compromisso.IdUsuario == usuario.IdUsuario)
                 {
-                    //excluindo compromisso
+                    //excluindo o compromisso
                     compromissoRepository.Delete(compromisso);
-                    return Ok("Compromisso excluído com sucesso.");
+
+                    return Ok("Compromisso excluido com sucesso.");
                 }
                 else
                 {
@@ -114,15 +118,15 @@ namespace ProjetoApiEntity.Presentation.Controllers
         {
             try
             {
-                //obter o usuario autenticado
+                //obter o usuario autenticado..
                 var usuario = usuarioRepository.Get(User.Identity.Name);
 
-                //consultar os compromissos
-                var compromissos = compromissoRepository
-                    .GetByDatas(dataInicio, dataFim, usuario.IdUsuario);
+                //consultar os compromissos..
+                var compromissos = compromissoRepository.GetByDatas(dataInicio, dataFim, usuario.IdUsuario);
 
                 //retornar os dados obtidos
                 var result = new List<CompromissoConsultaModel>();
+
                 foreach (var item in compromissos)
                 {
                     result.Add(new CompromissoConsultaModel
@@ -134,6 +138,7 @@ namespace ProjetoApiEntity.Presentation.Controllers
                         Descricao = item.Descricao
                     });
                 }
+
                 return Ok(result);
             }
             catch (Exception e)
@@ -153,10 +158,10 @@ namespace ProjetoApiEntity.Presentation.Controllers
                 //obter o usuario autenticado
                 var usuario = usuarioRepository.Get(User.Identity.Name);
 
-                //obter o compromisso pelo id
+                //obter o compromisso pelo id..
                 var compromisso = compromissoRepository.GetById(id);
 
-                ///verificar se o compromisso existe e se pertence ao usuário autenticado
+                //verificando se o compromisso foi encontrado e se pretence ao usuario autenticado..
                 if (compromisso != null && compromisso.IdUsuario == usuario.IdUsuario)
                 {
                     var result = new CompromissoConsultaModel
@@ -167,6 +172,7 @@ namespace ProjetoApiEntity.Presentation.Controllers
                         Hora = compromisso.Hora.ToString(),
                         Descricao = compromisso.Descricao
                     };
+
                     return Ok(result);
                 }
                 else

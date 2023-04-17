@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProjetoApiEntity.Presentation.Settings;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace ProjetoApiEntity.Presentation.Configurations
@@ -26,8 +24,8 @@ namespace ProjetoApiEntity.Presentation.Configurations
             builder.Services.AddAuthentication(
                 auth =>
                 {
-                    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 }
                 ).AddJwtBearer(
                     bearer =>

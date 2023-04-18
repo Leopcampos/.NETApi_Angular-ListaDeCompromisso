@@ -1,22 +1,105 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-ligh">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Agenda de Compromissos</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="login">Realizar Autenticação</a>
-                </li>
-                <li class="nav-item"> <a class="nav-link" routerLink="register">Criar Conta de Usuário</a>
-                </li>
-            </ul>
+<div [hidden]="usuarioAutenticado">
+    <!-- CONTEÚDO DO USUÁRIO NÃO AUTENTICADO -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-ligh">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Agenda de Compromissos</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="login">Realizar Autenticação</a>
+                    </li>
+                    <li class="nav-item"> <a class="nav-link" routerLink="register">Criar Conta de Usuário</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
+</div>
 <div class="mt-4">
     <router-outlet></router-outlet>
+</div>
+
+<div [hidden]="!usuarioAutenticado">
+    <!-- CONTEÚDO DO USUÁRIO AUTENTICADO -->
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Agenda</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="admin">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Painel Principal</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Compromissos</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gerenciar Compromissos:</h6>
+                        <a class="collapse-item" routerLink="cadastro-compromisso">Cadastrar Compromissos</a>
+                        <a class="collapse-item" routerLink="consulta-compromisso">Consultar Compromissos</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                        </li>
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuário autenticado</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Sair do Sistema
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="container-fluid">
+                    
+                </div>
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; TechNova 2023</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- End of Page Wrapper -->
 </div>

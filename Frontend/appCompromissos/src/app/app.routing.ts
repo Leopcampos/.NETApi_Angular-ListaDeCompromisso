@@ -5,11 +5,13 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { CadastroCompromissoComponent } from "./cadastro-compromisso/cadastro-compromisso.component";
 import { ConsultaCompromissoComponent } from "./consulta-compromisso/consulta-compromisso.component";
+import { AdminComponent } from "./admin/admin.component";
 
 //mapear as rotas (URLs) para cada componente
 const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'admin', component: AdminComponent },
     { path: 'cadastro-compromisso', component: CadastroCompromissoComponent },
     { path: 'consulta-compromisso', component: ConsultaCompromissoComponent },
 ]

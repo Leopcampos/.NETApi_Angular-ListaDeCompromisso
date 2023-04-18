@@ -10,6 +10,7 @@ import { ConsultaCompromissoComponent } from './consulta-compromisso/consulta-co
 import { AppRoutingModule } from './app.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import{ HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import{ HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegisterComponent,
     CadastroCompromissoComponent,
-    ConsultaCompromissoComponent
+    ConsultaCompromissoComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

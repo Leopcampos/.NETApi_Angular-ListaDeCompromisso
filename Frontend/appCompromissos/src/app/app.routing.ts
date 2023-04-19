@@ -9,6 +9,9 @@ import { AdminComponent } from "./admin/admin.component";
 
 //mapear as rotas (URLs) para cada componente
 const routes: Routes = [
+    //Colocando a página inicial como /login
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'admin', component: AdminComponent },

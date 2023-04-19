@@ -1,1 +1,141 @@
-<p>consulta-compromisso works!</p>
+<!-- Circle Buttons -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"> Consulta de compromissos </h6>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-success alert-dismissible fade show" [hidden]="!mensagens.sucesso" role="alert">
+            <strong>{{mensagens.sucesso}}</strong>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible fade show" [hidden]="!mensagens.erro" role="alert">
+            <strong>{{mensagens.erro}}</strong>
+        </div>
+
+        <form #formConsulta="ngForm" (submit)="pesquisarCompromissos(formConsulta)" autocomplete="false">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="dataInicio" ngModel />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="dataFim" ngModel />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Pesquisar Compromissos" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr />
+        <table *ngIf="listagemCompromissos.length > 0" class="table table-sm table-hover table-stripped">
+            <thead>
+                <tr>
+                    <th>Nome do Compromisso</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Descrição</th>
+                    <th>Operações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listagemCompromissos">
+                    <td>{{item.nome}}</td>
+                    <td>{{item.data}}</td>
+                    <td>{{item.hora}}</td>
+                    <td>{{item.descricao}}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm mr-1" data-target="#janelaedicao" data-toggle="modal"
+                            (click)="obterCompromisso(item.idCompromisso)">Editar</button>
+
+                        <button class="btn btn-danger btn-sm mr-1"
+                            (click)="excluirCompromisso(item.idCompromisso)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">Quantidade de registros: {{listagemCompromissos.length}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div id="janelaedicao" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white">Atualizar Compromisso</h5>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success alert-dismissible fade show" [hidden]="!mensagens.sucessoedicao"
+                    role="alert">
+                    <strong>{{mensagens.sucessoedicao}}</strong>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show" [hidden]="!mensagens.erroedicao"
+                    role="alert">
+                    <strong>{{mensagens.erroedicao}}</strong>
+                </div>
+
+                <form #formEdicao="ngForm" (submit)="atualizarCompromisso(formEdicao)" autocomplete="false">
+                    <input type="hidden" name="idCompromisso" [(ngModel)]="compromissoEdicao.idCompromisso" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nome do Compromisso</label>
+                                <input type="text" class="form-control" name="nome" [(ngModel)]="compromissoEdicao.nome"
+                                    placeholder="Digite aqui" />
+                                <div class="text-danger" *ngFor="let e of validacoes.nome">
+                                    <i class="fa fa-exclamation-circle"></i> {{e}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group"> <label>Data do Compromisso</label> <input type="text"
+                                    class="form-control" name="data" [(ngModel)]="compromissoEdicao.data" />
+                                <div class="text-danger" *ngFor="let e of validacoes.data">
+                                    <i class="fa fa-exclamation-circle"></i> {{e}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Hora do Compromisso</label>
+                                <input type="text" class="form-control" name="hora" [(ngModel)]="compromissoEdicao.hora"
+                                    placeholder="HH:MM" />
+                                <div class="text-danger" *ngFor="let e of validacoes.hora">
+                                    <i class="fa fa-exclamation-circle"></i> {{e}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea class="form-control" name="descricao"
+                                    [(ngModel)]="compromissoEdicao.descricao" placeholder="Digite aqui">
+                                </textarea>
+                                <div class="text-danger" *ngFor="let e of validacoes.descricao">
+                                    <i class="fa fa-exclamation-circle"></i> {{e}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <div class="form-group"> <button type="button" class="btn btn-secondary mr-2"
+                                    data-dismiss="modal">Cancelar</button> <input type="submit"
+                                    value="Atualizar Compromisso" class="btn btn-success" /> </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

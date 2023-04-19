@@ -1,1 +1,62 @@
-<p>cadastro-compromisso works!</p>
+<!-- Circle Buttons -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Cadastro de compromissos</h6>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-success alert-dismissible fade show" [hidden]="!mensagens.sucesso" role="alert">
+            <strong>{{mensagens.sucesso}}</strong>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show" [hidden]="!mensagens.erro" role="alert">
+            <strong>{{mensagens.erro}}</strong>
+        </div>
+        <form #formCadastro="ngForm" (submit)="cadastrarCompromisso(formCadastro)" autocomplete="false">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nome do Compromisso</label>
+                        <input type="text" class="form-control" name="nome" ngModel placeholder="Digite aqui" />
+                        <div class="text-danger" *ngFor="let e of validacoes.nome">
+                            <i class="fa fa-exclamation-circle"></i> {{e}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Data do Compromisso</label>
+                        <input type="date" class="form-control" name="data" ngModel />
+                        <div class="text-danger" *ngFor="let e of validacoes.data">
+                            <i class="fa fa-exclamation-circle"></i> {{e}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Hora do Compromisso</label>
+                        <input type="text" class="form-control" name="hora" ngModel placeholder="HH:MM" />
+                        <div class="text-danger" *ngFor="let e of validacoes.hora">
+                            <i class="fa fa-exclamation-circle"></i> {{e}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea class="form-control" name="descricao" ngModel placeholder="Digite aqui"></textarea>
+                        <div class="text-danger" *ngFor="let e of validacoes.descricao">
+                            <i class="fa fa-exclamation-circle"></i> {{e}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"> <input type="submit" value="Cadastrar Compromisso"
+                            class="btn btn-success" /> </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

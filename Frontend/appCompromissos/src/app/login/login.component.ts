@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
-import * as services from 'src/auth/authServices'
+import * as services from 'src/auth/authServices';
 
 @Component({
   selector: 'app-login',

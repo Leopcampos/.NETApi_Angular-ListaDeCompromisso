@@ -1,4 +1,4 @@
-<div [hidden]="usuarioAutenticado">
+<div *ngIf="!usuarioAutenticado">
     <!-- CONTEÚDO DO USUÁRIO NÃO AUTENTICADO -->
     <nav class="navbar navbar-expand-lg navbar-light bg-ligh">
         <div class="container-fluid">
@@ -24,7 +24,7 @@
     <router-outlet></router-outlet>
 </div>
 
-<div [hidden]="!usuarioAutenticado">
+<div *ngIf="usuarioAutenticado">
     <!-- CONTEÚDO DO USUÁRIO AUTENTICADO -->
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -80,7 +80,7 @@
                                 aria-labelledby="userDropdown">
                                 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" (click)="logout()">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Sair do Sistema
                                 </a>
@@ -89,7 +89,7 @@
                     </ul>
                 </nav>
                 <div class="container-fluid">
-                    
+                    <router-outlet></router-outlet>
                 </div>
             </div>
             <footer class="sticky-footer bg-white">
